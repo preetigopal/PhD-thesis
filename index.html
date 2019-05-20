@@ -1,0 +1,292 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Tomographic Reconstruction: a Radiation Reduction Approach</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="images/favicon.png">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+    </style>
+  </head>
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+          <h3>Tomographic Reconstruction: a Radiation Reduction Approach</h3>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+        </div>
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+          <a href="#abstract" class="mdl-layout__tab is-active">Overview</a>
+          <a href="#few-view" class="mdl-layout__tab">Few-View Reconstruction</a>
+          <a href="#low-dose" class="mdl-layout__tab">Low-Dose Reconstruction</a>
+          <a href="#partial-fourier" class="mdl-layout__tab">Fourier Space Reconstruction</a>
+          <a href="#publications" class="mdl-layout__tab">Publications</a>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+          </button>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+
+
+<!-- Abstract begins -->
+
+         <div class="mdl-layout__tab-panel is-active" id="abstract">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+
+		<p>
+		Computed tomography (CT) enables visualization of the internal
+		  structure of an object without cutting it
+		  open. This is extremely useful and finds extensive applications in
+		  medicine, for instance, to observe the changes in the internal
+		  anatomy.  It is also used to visualize the internal structure of
+		  plant specimens, as well as in the fault detection of fabricated objects in the
+		  manufacturing sector. While it is true that there is no explicit physical damage, CT does
+		  require passing a uniform beam of X-rays through an object from multiple directions as shown below. 		   
+                 </p>
+                  <center><img src="images/introduction/CT.png" width="470" height="400" Vspace="30"></img></center>
+
+		 <p> Differences in the local absorption of the X-rays convey information 
+		  about the internal object density variations.	High intensity
+		  X-rays sent from a large number of directions -- theoretically
+		  infinite -- enables excellent clarity of the internals.  However,
+		  reducing the exposure to these rays has always been sought after in order to prevent the specimen
+		  from damage, especially if it is being imaged multiple times over an
+		  extended time duration. For this reason, <b>one may either reduce the
+		  number of directions along which rays are passed (few-view) or
+		  reduce the intensity (low-dose) of rays or apply both of
+		  these</b>. In such cases, the inverse reconstruction problem becomes
+		  ill-posed and it is challenging to reconstruct the 3D object with
+		  details of sufficient diagnostic quality. 
+		  </p>
+
+                  <center><img src="images/introduction/reduction_4_webpage.png" width="825" height="400" Vspace="30"></img></center>
+
+
+
+                <p> The figure below shows the kind of artefacts that appear when reconstructing from few-view and low-dose measurements.</p>
+
+                  <center><img src="images/introduction/artefacts.png" width="825" height="300" Vspace="30"></img></center>
+		<p>
+		  This thesis aims to reduce the above artefacts by using <b>data-driven (prior-based)</b> techniques within the widely used <b>Compressed Sensing (CS)</b> framework, for each of the above scenarios: 			  few-view imaging and low-dose imaging. We specifically focus on 
+                  reconstructing in <b>longitudinal studies</b> i.e., when repeated scans of an object are taken to study the changes within it over a period of 			  time. The figure below gives a outline of where our work fits in within the imaging and reconstruction pipeline.                   
+
+                  </p>
+
+		<center><img src="images/thesis_summary/thesis_contributions.png" width="880" height="450" align="middle"></img></center> 
+              
+            </div>
+          </section>
+        </div>
+ 
+<!-- Abstract ends -->
+
+<!-- Few-view reconstruction begins-->
+
+        <div class="mdl-layout__tab-panel" id="few-view">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+              
+		<p> In conventional data acquisition techniques, measurements are acquired by sampling the physical object uniformly above the Nyquist rate.  
+		In few-view imaging, the measurements are taken from an exceedingly small number of
+		views; however, these are with standard strength X-rays, i.e., the
+		intensity of each beam is kept to current practices. We present two techniques to significantly reduce the reconstruction artefacts due to few-view imaging: </p>
+
+              <ul class="toc">
+               
+                <a href="#grouping_measurements" style="color:purple;">Grouping measurements</a>
+                <a href="#few-view-prior" style="color:purple;">Using Unweighted and weighted global priors</a>
+              </ul>
+
+              <h4 id="grouping_measurements" style="color:brown;">Grouping measurements</h4>
+		<p>Here, we show that if measurements from different views of two
+		similar objects are combined, then the reconstructions of both the
+		objects improve. This is due the presence of additional information
+		than would have otherwise not been utilized had the two objects been
+		reconstructed from their respective measurements. </p>
+              <center><img src="images/few_views_tomography/grouping_process.png" width="920" height="300" align="middle"></img></center>
+
+	      <h4 id="few-view-prior" style="color:brown;">Using Unweighted and weighted global priors</h4>
+	      <p>Next, we deal with the case of longitudinal studies, wherein an object
+		is imaged multiple times to observe the changes it undergoes over a
+		period of time. Given previous good quality scans of an object
+		(``templates''), we reconstruct the current data from its few-view
+		measurements. A sample result on CT of Humerus bone is shown below:</p>
+		<center><img src="images/few_views_tomography/FBP_CS_Ours.png" width="750" height="200" align="middle" Vspace="30"></img></center>
+		<p>An overview of our method is shown below. The choice of the number of measurement views and the type of reconstruction is driven by the goal in any 			application.  When our goal is simple-- to track the location of new changes while simultaneously reducing sub-sampling artefacts, we propose to (a) capture 			measurements from few views (`few-view' imaging) and use unweighted prior-based reconstruction. When our goal becomes more ambitious-- to observe details of 			the new changes while simultaneously reducing sub-sampling artefacts, we propose to  (b) capture measurements from a slightly higher number of views 			(`moderate-view' imaging) and use weighted prior-based reconstruction.</p>
+	      <center><img src="images/few_views_tomography/prior_cmb.png" width="750" height="550" align="middle"></img></center>
+	      
+        
+              
+            </div>
+          </section>
+        </div>
+
+
+ 
+<!-- Few-view reconstruction ends-->
+
+<!-- Low-dose begins-->
+
+        <div class="mdl-layout__tab-panel" id="low-dose">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+              	In low-dose imaging, the measurements are taken with reduced strength X-rays,
+		i.e., the intensity of each beam is kept far below  current practices.
+
+		Traditional low dose reconstructions are noisy due to the dominance of
+		Poisson noise during aquisition. We use a new convolution based method
+		to reconstruct from low dose measurements and compare its performance
+		with existing methods. Further, in cases where previous regular
+		standard dose based scans of an object are available, we apply the
+		prior based technique to detect inliers or regions of new changes from
+		low dose measurements. Once the inliers are detected, this information
+		is appropriately used 
+		to again enhance the reconstruction with improved sensitivity to changes over any altered regions.
+    
+              
+            </div>
+          </section>
+        </div>
+ 
+<!-- Low-Dose ends-->
+
+
+<!-- Fourier Space Reconstruction begins-->
+
+        <div class="mdl-layout__tab-panel" id="partial-fourier">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+              <p> Finally, all of the previous processes use projected views to reconstruct 
+		images as a local regional intensity estimate for each discrete image 
+		pixel or voxel. Acquiring measurements along a direction corresponds to 
+		sampling a few frequencies from the spectrum of the imaged object.
+		In this context,  we also show that under-sampled frequency domain data can be 
+		processed  to  partially interpolate missing values to further improve 
+		the quality of the reconstructed images. An oveview of our technique is shown below:</p>
+              <center><img src="images/freq/FI_new.png" width="750" height="450" align="middle"></img></center>       
+              
+            </div>
+          </section>
+        </div>
+ 
+<!-- fourier Space Reconstruction ends-->
+
+<!-- Publication begins-->
+
+        <div class="mdl-layout__tab-panel" id="publications">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+		  <ul>
+		  <li>Preeti Gopal, Sharat Chandran, Imants Svalbe and Ajit Rajwade, Low Dose Tomography: <i>Poisson-
+			Gaussian Convolution-based Reconstruction</i>, an abstract, International Symposium on Biomedical
+			Imaging, April 2019.</li>
+		  <li>Preeti Gopal, Sharat Chandran, Imants Svalbe and Ajit Rajwade, <i>Tomography in Longitudinal
+			Studies: Detecting New Structures from Sparse Measurements</i>, an abstract, International Sympo-
+			sium on Biomedical Imaging, April 2019.</li>
+		  <li>Preeti Gopal and Imants Svalbe, <i>Spatial domain morphological filtering for interpolation of the
+			Fourier domain</i>, Pattern Recognition Letters, December 2018.</li>
+		  <li>Preeti Gopal, Ritwick Chaudhry, Sharat Chandran, Imants Svalbe and Ajit Rajwade, <i>Tomographic
+			reconstruction using global statistical priors</i>, Digital Image Computing: Techniques and Applications
+			, December 2017.</li>
+                  <li>Preeti Gopal, Sharat Chandran, Imants Svalbe and Ajit Rajwade, <i>Multi-slice tomographic reconstruction:
+			 to couple or not to couple</i>, Indian Conference on Computer Vision, Graphics and Image
+			Processing, December 2016.</li>
+		  <li>Preeti Gopal, Ajit Rajwade, Sharat Chandran and Imants Svalbe, <i>A Comparison of Some Methods
+			 for Direct 2D Reconstruction from Discrete Projected Views</i>, Discrete Geometry for Computer
+			Imagery, April 2016.</li>
+		 </ul>
+
+
+              <p>         
+              
+            </div>
+          </section>
+        </div>
+ 
+<!-- Publication ends-->
+
+<!-- Thesis summary begins-->
+
+        <div class="mdl-layout__tab-panel" id="thesis_summary">
+          <section class="section--center mdl-grid mdl-grid--no-spacing">
+            <div class="mdl-cell mdl-cell--12-col">
+
+
+              <img src="images/thesis_summary/thesis_contributions.png" width="750" height="450" align="middle"></img>         
+              
+            </div>
+          </section>
+        </div>
+ 
+<!-- Thesis summary ends-->
+
+
+      </main>
+    </div>
+    <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/text-only/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  </body>
+</html>
