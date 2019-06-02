@@ -74,7 +74,6 @@
           <a href="#abstract" class="mdl-layout__tab is-active">Overview</a>
           <a href="#few-view" class="mdl-layout__tab">Few-View Reconstruction</a>
           <a href="#low-dose" class="mdl-layout__tab">Low-Dose Reconstruction</a>
-          <a href="#partial-fourier" class="mdl-layout__tab">Fourier Space Reconstruction</a>
           <a href="#publications" class="mdl-layout__tab">Publications</a>
           <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
             <i class="material-icons" role="presentation">add</i>
@@ -132,16 +131,16 @@
                   reconstructing in <b>longitudinal studies</b> i.e., when repeated scans of an object are taken to study the changes within it over a period of 			  time.                  
 
                   </p>
-<h5>Problem Statements</h5>
-<ul>
-<li>Given no information about the object, reconstruct from its few-view or low-dose measurements, with minimal artefacts.</li>
-<li>Given previous high quality scans of similar or identical objects, reconstruct the current object (`test') from its few-view or low-dose measurements, with minimal artefacts.</li>
-<ul><li>An intrinsic danger in using prior is its  dominance in the reconstruction, which leads to inaccurate reconstruction of new changes in the test that were not present earlier. This defeats the very purpose of longitudinal studies. Hence, one of our goals is to ensure that the reconstructions of new changes in the test is not biased  by the prior.</li></ul>
-</ul>
+		<h5>Problem Statements</h5>
+		<ul>
+		<li>Given no information about the object, reconstruct from its few-view or low-dose measurements, with minimal artefacts.</li>
+		<li>Given previous high quality scans of similar or identical objects, reconstruct the current object (`test') from its few-view or low-dose measurements, with minimal artefacts.</li>
+		<ul><li>An intrinsic danger in using prior is its  dominance in the reconstruction, which leads to inaccurate reconstruction of new changes in the test that were not present earlier. This defeats the very purpose of longitudinal studies. Hence, one of our goals is to ensure that the reconstructions of new changes in the test is not biased  by the prior.</li></ul>
+		</ul>
 
-<p> The figure below gives an outline of where our work fits in within the imaging and reconstruction pipeline.</p>
+		<p> The figure below gives an outline of where our work fits in within the imaging and reconstruction pipeline.</p>
 
-		<center><img src="images/thesis_summary/thesis_contributions.png" width="880" height="450" align="middle" Vspace="30"></img></center> 
+				<center><img src="images/thesis_summary/thesis_contributions.png" width="880" height="450" align="middle" Vspace="30"></img></center> 
                 
             </div>
           </section>
@@ -162,32 +161,14 @@
 		intensity of each beam is kept to current practices. We discuss the reduction of artefacts in few-view imaging under the following two scenarios: </p>
 
               <ul class="toc">
-               
-                <a href="#few_view_without_prior" style="color:purple;">Reconstruction Without Prior</a>
+
                 <a href="#few_view_with_prior" style="color:purple;">Reconstruction With Prior</a>
+                <a href="#few_view_without_prior" style="color:purple;">Reconstruction Without Prior</a>                
               </ul>
-
-              <h4 id="few_view_without_prior" style="color:brown;">Reconstruction Without Prior</h4>
-		<p>If the measurements from different views of two
-		similar objects are combined, then we show that the reconstructions of both the
-		objects improve. This is due to the presence of additional information
-		that would have otherwise not been utilized had the two objects been
-		reconstructed from their respective measurements alone.
-	        Specifically, within the CS framework, we reconstruct only a reference slice and its difference from the neighbouring similar slices. 
-                 <b>The difference between two similar slices is sparser than any of the individual slices</b>. This improves the reconstruction within the CS framework.   </p>
-
-<p><b>Challenge: Since the data is unknown to begin with, we do not know which parts of the data are similar and which are not.</b> Hence we first compute the image moments from the Radon projection moments. Similarity in image moments is inferred as similarity between underlying slices. Once the image moments of all slices are computed, their measurements are grouped based on a similarity metric and an optimal grouping mechanism through the Segmented Least Squares Algorithm. The grouped measurements are then reconstructed together, and the others are reconstructed independently. An overview of this algorithm is shown below:</p>
-              <center><img src="images/few_views_tomography/sls_new.png" width="920" height="220" align="middle" Vspace="30"></img></center>
-              <h5><b>Sample Result: 3D Reconstruction</b></h5>
-
-              <p>This  <a href="images/few_views_tomography/brainweb.avi" style="color:purple;">video</a> shows the reconstruction of a volume of 60 slices from the 			Brainweb dataset.</p> 
-               
-
-
 
 
 	      <h4 id="few_view_with_prior" style="color:brown;">Reconstruction With Prior</h4>
-	      <p>Next, we deal with the case of longitudinal studies, wherein an object
+	      <p>We deal with the case of longitudinal studies, wherein an object
 		is imaged multiple times to observe the changes it undergoes over a
 		period of time. Given previous good quality scans of an object
 		('templates'), we reconstruct the current data ('test') from its few-view
@@ -199,6 +180,47 @@
 <p> One of our datasets consists of a longitudinal study performed on an okra specimen. Multiple scans were taken, each time after introducing a small incision on one of its sides. We reconstructed one of the volumes ('test') by assuming the other volumes as templates. Since our goal here is to accurately observe the new details (presence or absence of the incision), we observe that the weighted prior method accurately reconstructs the new changes.</p>
 		<center><img src="images/few_views_tomography/all_okra3d_few_view_results.png" width="600" height="1000" align="middle" Vspace="30"></img></center>
 	      
+
+
+              <h4 id="few_view_without_prior" style="color:brown;">Reconstruction Without Prior</h4>
+	     <h5 style="color:Blue;"><b>Grouping Measurements</b></h5>
+		<p>When prior is unavailable, we exploit the inherent redundancy with the data. If the measurements from different views of two
+		similar objects are combined, then we show that the reconstructions of both the
+		objects improve. This is due to the presence of additional information
+		that would have otherwise not been utilized had the two objects been
+		reconstructed from their respective measurements alone.
+	        Specifically, within the CS framework, we reconstruct only a reference slice and its difference from the neighbouring similar slices. 
+                 <b>The difference between two similar slices is sparser than any of the individual slices</b>. This improves the reconstruction within the CS framework.   </p>
+
+		<p><b>Challenge: Since the data is unknown to begin with, we do not know which parts of the data are similar and which are not.</b> Hence we first compute the image moments from the Radon projection moments. Similarity in image moments is inferred as similarity between underlying slices. Once the image moments of all slices are computed, their measurements are grouped based on a similarity metric and an optimal grouping mechanism through the Segmented Least Squares Algorithm. The grouped measurements are then reconstructed together, and the others are reconstructed independently. An overview of this algorithm is shown below:</p>
+			      <center><img src="images/few_views_tomography/sls_new.png" width="920" height="220" align="middle" Vspace="30"></img></center>
+              <h5><b>Sample Result: 3D Reconstruction</b></h5>
+
+              <p>This  <a href="images/few_views_tomography/brainweb.avi" style="color:purple;">video</a> shows the reconstruction of a volume of 60 slices from the 			Brainweb dataset.</p> 
+               
+
+<!-- Fourier Space Reconstruction begins-->
+
+<h5 style="color:Blue;"><b>Reconstruction from Partial Fourier Space</b></h5>
+              <p> In this section, we view tomographic measurements from a different perspective. The central limit theorem relates the tomographic measurements to samples in the Fourier space along the direction of imaging. Hence, sub-sampling in CT directly corresponds to sub-sampling the spectrum of the imaged object. Here, we propose a direct one-step reconstruction technique that can serve as a good initialization for iterative schemes. </p>
+
+<p>In our experiments, we have considered the hypothetical case of being provided with the Fourier spectrum of a 2D image sampled by Costas autocorrelation sequence. Our aim is to predict the remaining Fourier samples and hence be able to reconstruct the image. We start with a raw estimate of the spatial reconstructed image. We then apply a series of morphological filters on this image with varying sizes of structuring elements (SE). An overview of our technique is shown below:</p>
+              <center><img src="images/freq/FI_new.png" width="750" height="450" align="middle" Vspace="30"></img></center>
+
+<p>Morphological operations ('opening' and 'closing') have the following advantages:
+<ul><li> The intensity of the 'opened' and 'closed' images are tight bounds on the intensity of the image on which these operations are applied.</li>
+<li> The effect of these operations are seen in just one pass. Further filtering with the same SE does not produce new changes.</li>
+</ul>
+</p>  
+
+
+              <h4><b>Sample Result:</b></h4>
+	      <center><img src="images/freq/non_linear_interpolation_result.png" width="670" height="580" align="middle" Vspace="30"></img></center>     
+              
+<p> This technique is generic and can be applied to Fourier spectra sampled in any pattern. </p>
+
+ 
+<!-- fourier Space Reconstruction ends-->
         
               
             </div>
@@ -224,24 +246,13 @@
 
               <ul class="toc">
                
-                <a href="#low_dose_without_prior" style="color:purple;">Reconstruction Without Prior</a>
                 <a href="#low_dose_with_prior" style="color:purple;">Reconstruction With Prior</a>
-              </ul>
-
-
-                <h4 id="low_dose_without_prior" style="color:brown;">Reconstruction Without Prior</h4>
-                <p>In the presence of Poisson random noise, the imaging model is no longer linear or even deterministic. In such a scenario, there are multiple ways to model the noisy imaging process. In this thesis, we use a new <b>Poisson-Gaussian Convolution Reconstruction (PGCR)</b> method
-		and compare its performance with the following techniques:
-<ul><li>Post-log filtered backprojection (no noise modeling)</li>
-<li>Rescaled non-linear least squares (partial modeling of Poisson noise)</li>
-<li>Negative likelihood Poisson-Gaussian (modeling of Poisson and Gaussian noise)</li></ul></p>
-<h5><b>Sample Result: 2D reconstruction</b></h5>
-<p>A quantitative comparison of the above methods was perfomed for varying values of X-ray dose. Results on one of the datasets is shown below.</p>
-<center><img src="images/low_dose_tomography/SSIM_colon.png" width="750" height="500" align="middle" Vspace="30"></img></center>
-<p>Among the above methods, we choose rescaled non-linear least squares for future reconstructions with prior as this technique offers a good balance between computation time and accuracy.</p>
+                <a href="#low_dose_without_prior" style="color:purple;">Reconstruction Without Prior</a>
+                
+              </ul>                
 
                 <h4 id="low_dose_with_prior" style="color:brown;">Reconstruction With Prior</h4>
-<p>Next, we deal with the case of longitudinal studies, wherein an object
+<p>We deal with the case of longitudinal studies, wherein an object
 		is imaged multiple times to observe the changes it undergoes over a
 		period of time. Given previous good quality scans of an object
 		('templates'), we reconstruct the current data ('test') from its low-dose
@@ -253,6 +264,17 @@
 One of our datasets consists of a longitudinal study performed on a potato specimen. Multiple scans were taken, each time after introducing a small incision into the potato. We reconstructed one of the volumes ('test') by assuming the other volumes as templates. Our goal here is to accurately observe the new details i.e., presence or absence of the incision. We see that the weighted prior method accurately locates the new changes and reconstructs it. On the other hand, the unweighted prior dominates the reconstruction and adversely affects the new changes. </p>
 
               <center><img src="images/low_dose_tomography/all_potato3d_low_dose_results.png" width="600" height="700" align="middle" Vspace="30"></img></center>
+
+<h4 id="low_dose_without_prior" style="color:brown;">Reconstruction Without Prior</h4>
+                <p> If the dose were high, then the post-log methods are good enough. However, they are inadequate for low-dose regime. In the presence of Poisson random noise, the imaging model is no longer linear or even deterministic. In such a scenario, there are multiple ways to model the noisy imaging process. In this thesis, we use a new <b>Poisson-Gaussian Convolution Reconstruction (PGCR)</b> method
+		and compare its performance with the following techniques:
+<ul><li>Post-log filtered backprojection (no noise modeling)</li>
+<li>Rescaled non-linear least squares (partial modeling of Poisson noise)</li>
+<li>Negative likelihood Poisson-Gaussian (modeling of Poisson and Gaussian noise)</li></ul></p>
+<h5><b>Sample Result: 2D reconstruction</b></h5>
+<p>A quantitative comparison of the above methods was perfomed for varying values of X-ray dose. Results on one of the datasets is shown below.</p>
+<center><img src="images/low_dose_tomography/SSIM_colon.png" width="750" height="500" align="middle" Vspace="30"></img></center>
+<p>Among the above methods, we choose rescaled non-linear least squares for future reconstructions with prior as this technique offers a good balance between computation time and accuracy.</p>
             </div>
           </section>
         </div>
@@ -260,34 +282,7 @@ One of our datasets consists of a longitudinal study performed on a potato speci
 <!-- Low-Dose ends-->
 
 
-<!-- Fourier Space Reconstruction begins-->
 
-        <div class="mdl-layout__tab-panel" id="partial-fourier">
-          <section class="section--center mdl-grid mdl-grid--no-spacing">
-            <div class="mdl-cell mdl-cell--12-col">
-
-              <p> In this section, we view tomographic measurements from a different perspective. The central limit theorem relates the tomographic measurements to samples in the Fourier space along the direction of imaging. Hence, sub-sampling in CT directly corresponds to sub-sampling the spectrum of the imaged object. Here, we propose a direct one-step reconstruction technique that can serve as a good initialization for iterative schemes. </p>
-
-<p>In our experiments, we have considered the hypothetical case of being provided with the Fourier spectrum of a 2D image sampled by Costas autocorrelation sequence. Our aim is to predict the remaining Fourier samples and hence be able to reconstruct the image. We start with a raw estimate of the spatial reconstructed image. We then apply a series of morphological filters on this image with varying sizes of structuring elements (SE). An overview of our technique is shown below:</p>
-              <center><img src="images/freq/FI_new.png" width="750" height="450" align="middle" Vspace="30"></img></center>
-
-<p>Morphological operations ('opening' and 'closing') have the following advantages:
-<ul><li> The intensity of the 'opened' and 'closed' images are tight bounds on the intensity of the image on which these operations are applied.</li>
-<li> The effect of these operations are seen in just one pass. Further filtering with the same SE does not produce new changes.</li>
-</ul>
-</p>  
-
-
-              <h4><b>Sample Result:</b></h4>
-	      <center><img src="images/freq/non_linear_interpolation_result.png" width="670" height="580" align="middle" Vspace="30"></img></center>     
-              
-            </div>
-
-<p> This technique is generic and can be applied to Fourier spectra sampled in any pattern. </p>
-          </section>
-        </div>
- 
-<!-- fourier Space Reconstruction ends-->
 
 <!-- Publication begins-->
 
@@ -316,7 +311,7 @@ One of our datasets consists of a longitudinal study performed on a potato speci
 		 </ul>
 
 
-              <p>         
+              <p> Two journal manuscripts are in preparation, one each for few-views and low-dose reconstruction algorithms.</p>        
               
             </div>
           </section>
